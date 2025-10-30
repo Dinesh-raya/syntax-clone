@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Synthax — PyScript Full (Clone)</title>
+  <title>PySynthax Full — DevMode (Live DSP)</title>
 
-  <!-- PyScript CDN -->
+  <!-- PyScript -->
   <link rel="stylesheet" href="https://pyscript.net/pyodide/latest/pyscript.css" />
   <script defer src="https://pyscript.net/pyodide/latest/pyscript.js"></script>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="bg-anim"></div>
   <div class="container">
     <header>
       <div class="logo">
         <div class="mark">PySx</div>
         <div>
-          <div style="font-weight:700">Synthax — PyScript Full (Clone)</div>
-          <div class="muted small">Pure Python in the browser — full-featured clone</div>
+          <div style="font-weight:700">PySynthax — DevMode (Live DSP)</div>
+          <div class="muted small">Developer Mode — Full diagnostics (Shift+D)</div>
         </div>
       </div>
 
@@ -29,15 +30,14 @@
     </header>
 
     <section class="grid">
-      <!-- left -->
       <div>
         <div class="card" style="margin-bottom:12px">
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <div>
               <h3 style="margin:0">Interactive Pads</h3>
-              <div class="muted small">Play synth voices or uploaded sample</div>
+              <div class="muted small">Live DSP via WebAudio (oscillator nodes) controlled from PyScript</div>
             </div>
-            <div class="muted small">Latency depends on browser/device</div>
+            <div class="muted small">Developer Mode active</div>
           </div>
 
           <div class="control-row" style="margin-top:12px">
@@ -108,7 +108,6 @@
         </div>
       </div>
 
-      <!-- right -->
       <div>
         <div class="card">
           <h4 style="margin:0">Visualizer</h4>
@@ -127,13 +126,42 @@
     </section>
 
     <footer>
-      Made with PyScript — Serve via HTTP (e.g. <code>python -m http.server 8000</code>), then open <code>http://localhost:8000</code>.
+      Made with PyScript — Developer Mode (Live DSP). Serve via HTTP.
     </footer>
   </div>
 
-  <!-- main synth logic (Python) -->
+  <!-- developer HUD overlay -->
+  <div id="dev-hud" class="dev-hud hidden" aria-hidden="true">
+    <div class="hud-title">PySynthax HUD — Dev Diagnostics</div>
+    <div id="hud-status" class="hud-section">
+      <div id="hud-runtime">Runtime: —</div>
+      <div id="hud-audio">Audio: —</div>
+      <div id="hud-sample-rate">Sample Rate: —</div>
+      <div id="hud-osc">Oscillator: —</div>
+      <div id="hud-fps">FPS: —</div>
+      <div id="hud-cpu">CPU est: —</div>
+      <div id="hud-active">Active Pad: —</div>
+    </div>
+    <div class="hud-footer muted small">Toggle HUD: Shift + D</div>
+  </div>
+
+  <!-- run scripts -->
+  <script>
+    // small JS to open local server link when using run scripts (no-op otherwise)
+    function openLocal() { /* placeholder */ }
+    // Allow Shift+D to toggle HUD
+    document.addEventListener('keydown', function(e){
+      if(e.shiftKey && e.code === 'KeyD'){
+        var hud = document.getElementById('dev-hud');
+        if(hud.classList.contains('hidden')){ hud.classList.remove('hidden'); hud.setAttribute('aria-hidden','false'); }
+        else { hud.classList.add('hidden'); hud.setAttribute('aria-hidden','true'); }
+      }
+    });
+  </script>
+
+  <!-- PyScript modules -->
   <py-script src="synth.py"></py-script>
-  <!-- visualizer reads analyser from window.pysx_analyser -->
   <py-script src="visualizer.py"></py-script>
+  <py-script src="hud.py"></py-script>
 </body>
 </html>
