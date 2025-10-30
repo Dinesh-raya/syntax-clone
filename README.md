@@ -1,30 +1,32 @@
-# PySynthax — PyScript Full Clone
+# PySynthax Full — Developer Mode (Live DSP)
 
-This is a full-featured PyScript-based clone of a synth playground (styled and inspired by thesynthax.space).
-It runs completely in the browser with Python (Pyodide) via PyScript.
+This package runs a PyScript-based synth in developer mode with full diagnostics (HUD, FPS, CPU estimate).
 
-## Features
-- 9 playable pads (oscillator-based voices)
-- Waveform selection, master gain, release control
-- 4-step sequencer (2 voices)
-- Visualizer (real-time frequency bars)
-- Sample upload (play on Pad 1)
-- Save / Load project (JSON) and localStorage
-- MIDI input (if browser supports Web MIDI)
+## How to run
 
-## Run locally
-1. Serve the folder over HTTP. Example:
+### Linux / macOS
+Make the script executable and run:
+```bash
+chmod +x run.sh
+./run.sh
+```
+This will start a local HTTP server at port 8000 and open your browser.
 
+### Windows
+Run:
+```
+run.bat
+```
+It will open your default browser and start a local server.
+
+Alternatively, serve the folder with Python manually:
 ```bash
 python -m http.server 8000
 ```
+Then open `http://localhost:8000`.
 
-2. Open `http://localhost:8000` in a modern desktop browser (Chrome/Edge recommended).
-
-> Important: PyScript / Pyodide is large — initial load will take several seconds. For best UX, use a fast connection.
-
-## Notes & next steps
-- For production parity with a hand-optimized JS/WebAudio site, consider a JS fallback or hybrid approach (Python for logic + JS for critical audio paths).
-- You can customize styles in `styles.css` and extend Python code in `synth.py` / `visualizer.py`.
-
-Enjoy! ⚡
+## Notes
+- Use Chrome or Edge for best compatibility.
+- Click "Unlock Audio" once to enable audio.
+- Toggle the HUD overlay with `Shift + D`.
+- Live DSP uses WebAudio OscillatorNodes controlled from Python (via PyScript).

@@ -1,13 +1,15 @@
 :root{--bg:#071428;--muted:#9aa7c0;--accent:#7c3aed}
-body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#02030a 0%, #071428 100%);color:#e6eef8}
-.container{max-width:1100px;margin:24px auto;padding:18px}
+body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#e6eef8;overflow:hidden}
+.bg-anim{position:fixed;inset:0;background:linear-gradient(120deg,#020617,#071428 40%,#041124);filter:blur(24px);opacity:0.6;z-index:0}
+.container{position:relative;z-index:1;max-width:1100px;margin:24px auto;padding:18px}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:10px}
 .mark{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:grid;place-items:center;font-weight:700}
 .grid{display:grid;grid-template-columns:1fr 460px;gap:18px;margin-top:18px}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;backdrop-filter: blur(6px)}
 #pads{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.pad{padding:16px;border-radius:10px;text-align:center;background:rgba(255,255,255,0.03);cursor:pointer;user-select:none;transition:transform .08s ease}
+.pad{padding:16px;border-radius:10px;text-align:center;background:rgba(255,255,255,0.03);cursor:pointer;user-select:none;transition:transform .08s ease, box-shadow .12s ease}
+.pad:hover{box-shadow:0 6px 18px rgba(0,0,0,0.6)}
 .pad:active{transform:scale(.98)}
 canvas{width:100%;height:220px;border-radius:8px;display:block;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(255,255,255,0.02))}
 .control-row{display:flex;gap:8px;align-items:center;margin-top:12px}
@@ -20,3 +22,10 @@ select,input,button{padding:8px;border-radius:8px;border:0;background:#0b1220;co
 .row-title{font-weight:600;margin-bottom:6px}
 footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
 .top-controls{display:flex;gap:8px;align-items:center}
+
+/* HUD */
+.dev-hud{position:fixed;right:18px;bottom:18px;background:rgba(2,6,23,0.8);backdrop-filter:blur(6px);padding:12px;border-radius:10px;width:220px;color:#bcd3ef;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,0.6)}
+.dev-hud.hidden{opacity:0;pointer-events:none;transform:translateY(12px)}
+.dev-hud .hud-title{font-weight:700;margin-bottom:8px}
+.dev-hud .hud-section{font-size:13px;line-height:1.5}
+.hud-footer{margin-top:8px;text-align:right}
